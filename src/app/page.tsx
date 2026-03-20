@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Search, Settings, HelpCircle, Grid, Menu, Inbox, Star, Clock, Send, File, ChevronLeft, ChevronRight, Printer, ExternalLink, MoreVertical } from "lucide-react";
+import { Search, Settings, HelpCircle, Grid, Menu, Inbox, Star, Clock, Send, File, ChevronLeft, ChevronRight, Printer, ExternalLink, MoreVertical, PiggyBank, Home, Car, BadgeCheck, ChevronDown } from "lucide-react";
 
 import { motion } from "framer-motion";
 
@@ -13,7 +13,7 @@ export default function EmailPage() {
       <header className="flex h-16 items-center justify-between border-b px-4 shrink-0">
         <div className="flex items-center gap-4">
           <Menu className="h-6 w-6 text-gray-600" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/ae/ae/Gmail_icon_%282020%29.svg" alt="Gmail" className="h-8" />
+          <img src="/gmail_icon.svg" alt="Gmail" className="h-8" />
           <span className="text-xl font-medium text-gray-600">Gmail</span>
         </div>
         <div className="flex-1 max-w-2xl mx-8">
@@ -41,7 +41,7 @@ export default function EmailPage() {
         <aside className="w-64 flex flex-col pt-4 px-2 shrink-0">
           <button className="flex items-center gap-4 bg-teal-100/50 hover:bg-teal-100 text-teal-900 rounded-xl px-4 py-4 w-40 shadow-sm transition-colors mb-4">
             <div className="flex gap-1 justify-center items-center">
-              <span className="h-6 w-6 inline-flex bg-[url('https://ssl.gstatic.com/ui/v1/icons/mail/gm3/1x/create_baseline_nv700_24dp.png')] bg-center bg-no-repeat" />
+              <span className="h-6 w-6 inline-flex bg-[url('/compose_icon.svg')] bg-center bg-no-repeat" />
             </div>
             <span className="font-medium">Compose</span>
           </button>
@@ -116,11 +116,11 @@ export default function EmailPage() {
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-gray-800">HR For You</span>
-                  <span className="text-xs text-blue-600 bg-blue-50 px-1 rounded">✔</span>
+                  <BadgeCheck className="w-4 h-4 text-blue-600 fill-blue-50 bg-blue-50 rounded-full" />
                   <span className="text-sm text-gray-500">&lt;hrforyou@ltfs.com&gt;</span>
                 </div>
-                <div className="text-sm text-gray-500 flex items-center gap-1 dropdown-hover">
-                  to bcc: allemployees <span className="text-xs">▼</span>
+                <div className="text-sm text-gray-500 flex items-center gap-1 dropdown-hover cursor-pointer">
+                  to bcc: allemployees <ChevronDown className="w-3 h-3" />
                 </div>
               </div>
             </div>
@@ -162,14 +162,14 @@ export default function EmailPage() {
                   {/* Background connector line */}
                   <div className="absolute top-1/2 left-1/4 right-1/4 h-0.5 border-t-2 border-dashed border-gray-300 -translate-y-10 -z-0"></div>
 
-                  <div className="bg-red-50 p-6 rounded-full shadow-lg border border-red-100 z-10 relative bg-white">
-                    <span className="text-6xl">🐷</span>
+                  <div className="bg-rose-50 p-6 rounded-full shadow-xl border border-rose-100 z-10 relative bg-white text-rose-500 hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+                    <PiggyBank className="w-14 h-14" strokeWidth={1.5} />
                   </div>
-                  <div className="bg-yellow-50 p-6 rounded-full shadow-lg border border-yellow-100 z-10 relative bg-white mb-20 animate-bounce">
-                    <span className="text-6xl">🏠</span>
+                  <div className="bg-amber-50 p-6 rounded-full shadow-xl border border-amber-100 z-10 relative bg-white mb-20 animate-bounce text-amber-500 hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+                    <Home className="w-14 h-14" strokeWidth={1.5} />
                   </div>
-                  <div className="bg-blue-50 p-6 rounded-full shadow-lg border border-blue-100 z-10 relative bg-white">
-                    <span className="text-6xl">🚗</span>
+                  <div className="bg-sky-50 p-6 rounded-full shadow-xl border border-sky-100 z-10 relative bg-white text-sky-500 hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+                    <Car className="w-14 h-14" strokeWidth={1.5} />
                   </div>
                 </div>
               </div>
