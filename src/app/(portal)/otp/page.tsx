@@ -56,7 +56,7 @@ export default function OTPPage() {
             const data = await res.json();
             if (data.success) {
                 // Wait a slight moment for smooth transition
-                setTimeout(() => router.push("/offer"), 500);
+                setTimeout(() => router.push("/review-details"), 500);
             } else {
                 alert("Invalid OTP");
                 setLoading(false);

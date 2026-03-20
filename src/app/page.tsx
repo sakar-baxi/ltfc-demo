@@ -138,7 +138,7 @@ export default function EmailPage() {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="px-8 pb-12 overflow-x-auto"
           >
-            <Link href="/otp" className="block max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl transition hover:scale-[1.01] hover:shadow-3xl bg-gradient-to-br from-white to-blue-50 group cursor-pointer border border-gray-100">
+            <Link href="/mobile" className="block max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl transition hover:scale-[1.01] hover:shadow-3xl bg-gradient-to-br from-white to-blue-50 group cursor-pointer border border-gray-100">
 
               {/* Fake Email Image Area */}
               <div className="relative p-12 text-center pb-8 border-b border-gray-100">

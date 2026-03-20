@@ -2,21 +2,24 @@
 
 import React, { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, EyeOff, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { ChevronLeft, Check, EyeOff, ShieldCheck, Loader2 } from "lucide-react";
 
 export default function VerifyIdentityPage() {
-    const [pin, setPin] = useState(["", "", "", "", "", ""]);
-    const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const [pin, setPin] = useState(["", "", "", "", "", ""]);
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [verifying, setVerifying] = useState(false);
 
-    const handleChange = (index: number, value: string) => {
+    const handlePinChange = (index: number, value: string) => {
         if (value.length > 1) return;
         const newPin = [...pin];
         newPin[index] = value;
         setPin(newPin);
-        if (value && index < 5) inputRefs.current[index + 1]?.focus();
+
+        if (value && index < 5) {
+            inputRefs.current[index + 1]?.focus();
+        }
     };
 
     const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -25,126 +28,173 @@ export default function VerifyIdentityPage() {
         }
     };
 
-    const handleVerify = () => {
+    const handleProceed = () => {
         setLoading(true);
-        setTimeout(() => router.push("/verify-bank"), 1000);
+        setTimeout(() => {
+            router.push("/video-kyc");
+        }, 1000);
     };
 
-    return (
-        <div className="flex flex-col w-full h-full bg-[#fcfcfc] px-8 lg:px-24 py-10 relative">
-            <div className="mb-6">
-                <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Manish,</h1>
-                <p className="text-xl text-gray-700">Your loan offer is just couple of steps away!</p>
-            </div>
+    const handleVerify = () => {
+        setVerifying(true);
+        setTimeout(() => {
+            setVerifying(false);
+            // Pretend Verified
+        }, 1200);
+    };
 
-            <div className="flex flex-col lg:flex-row w-full max-w-[1200px] bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.05)] h-[650px]">
+    const allEntered = pin.every(d => d !== "");
+
+    return (
+        <div className="flex flex-col w-full min-h-[calc(100vh-5rem)] bg-[#fcfcfc] px-4 md:px-8 lg:px-24 py-10 relative">
+            <div className="flex flex-col lg:flex-row w-full max-w-[1300px] bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.05)] mx-auto min-h-[700px]">
 
                 {/* Left Nav */}
-                <div className="w-full lg:w-[280px] bg-[#fbe76a] p-10 flex flex-col relative shrink-0">
-                    <div className="absolute left-[3.35rem] top-16 bottom-[13rem] z-0 w-px border-l-2 border-dashed border-gray-600"></div>
-                    <div className="absolute left-[3.35rem] top-[14rem] bottom-16 z-0 w-px border-l-2 border-dashed border-[#c5b441]"></div>
+                <div className="hidden lg:flex w-[300px] bg-[#fbe76a] p-10 flex-col relative shrink-0">
+                    <div className="mb-10">
+                        <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Manish,</h1>
+                        <p className="text-sm text-gray-800 font-medium leading-relaxed">Your loan is just couple of steps away!</p>
+                    </div>
 
-                    <div className="relative flex items-start gap-4 mb-24 z-10">
-                        <div className="flex w-9 h-9 shrink-0 items-center justify-center rounded-full bg-[#3CA751] text-white shadow-sm border border-[#3CA751]">
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    <div className="absolute left-[3.35rem] top-[180px] bottom-32 w-px border-l-2 border-dashed border-[#c5b441]/50"></div>
+
+                    <div className="relative flex items-start gap-4 mb-16 z-10">
+                        <div className="flex w-7 h-7 sm:w-8 sm:h-8 shrink-0 items-center justify-center rounded-full bg-green-500 font-bold text-white shadow-sm border border-green-600 text-sm">
+                            <Check className="w-5 h-5 text-white" strokeWidth={3} />
                         </div>
                         <div>
-                            <p className="font-bold text-gray-900 text-[17px] mb-1 leading-none pt-1.5">Your Offer</p>
-                            <p className="text-[13px] text-gray-700 mt-1">Some explainer text</p>
+                            <p className="font-bold text-gray-900 text-[15px] mb-1 leading-none pt-1">Your Details</p>
+                            <p className="text-[12px] text-gray-700 mt-2 leading-relaxed opacity-90">Review & confirm details received from your HR portal to make sure we generate best offer for you</p>
                         </div>
                     </div>
 
-                    <div className="relative flex items-start gap-4 mb-24 z-10">
-                        <div className="flex w-9 h-9 shrink-0 items-center justify-center rounded-full bg-white font-bold text-gray-800 shadow-sm border border-gray-300">2</div>
+                    <div className="relative flex items-start gap-4 mb-16 z-10 opacity-100">
+                        <div className="flex w-7 h-7 sm:w-8 sm:h-8 shrink-0 items-center justify-center rounded-full bg-green-500 font-bold text-white border border-green-600 shadow-sm text-sm z-10">
+                            <Check className="w-5 h-5 text-white" strokeWidth={3} />
+                        </div>
                         <div>
-                            <p className="font-bold text-gray-900 text-[17px] mb-1 leading-none pt-1.5">Verification</p>
-                            <p className="text-[13px] text-gray-700 mt-1">Some explainer text</p>
+                            <p className="font-bold text-gray-900 text-[15px] mb-1 leading-none pt-1">Loan Offer</p>
+                            <p className="text-[12px] text-gray-700 mt-2 leading-relaxed">Basis your details provided above, we will present the best loan offer for you</p>
                         </div>
                     </div>
 
-                    <div className="relative flex items-start gap-4 z-10 opacity-70 grayscale-[20%]">
-                        <div className="flex w-9 h-9 shrink-0 items-center justify-center rounded-full bg-[#fbe76a] font-bold text-gray-900 border-2 border-yellow-500">3</div>
+                    <div className="relative flex items-start gap-4 mb-16 z-10">
+                        <div className="flex w-7 h-7 sm:w-8 sm:h-8 shrink-0 items-center justify-center rounded-full bg-white font-bold text-gray-900 border border-gray-300 shadow-sm text-sm">3</div>
                         <div>
-                            <p className="font-bold text-gray-900 text-[17px] mb-1 leading-none pt-1">Get Your Money</p>
-                            <p className="text-[13px] text-gray-700 mt-1">Some explainer text</p>
+                            <p className="font-bold text-gray-900 text-[15px] mb-1 leading-none pt-1">Verification</p>
+                            <p className="text-[12px] text-gray-700 mt-2 leading-relaxed opacity-90">A quick verification of the details you provided in step 1</p>
+                        </div>
+                    </div>
+
+                    <div className="relative flex items-start gap-4 z-10 opacity-60">
+                        <div className="flex w-7 h-7 sm:w-8 sm:h-8 shrink-0 items-center justify-center rounded-full bg-[#fbe76a] font-bold text-gray-900 border-2 border-yellow-500 text-sm">4</div>
+                        <div>
+                            <p className="font-bold text-gray-900 text-[15px] mb-1 leading-none pt-1">Get Your Money</p>
+                            <p className="text-[12px] text-gray-700 mt-2 leading-relaxed">e-Sign the documents (KFS, Loan Agreement) & money gets disbursed</p>
                         </div>
                     </div>
                 </div>
 
                 {/* Right Content Form */}
-                <div className="flex-1 p-8 lg:p-12 pb-4 overflow-y-auto">
-                    <h2 className="text-[26px] font-bold text-gray-800 mb-2 tracking-tight">Verify Your Identify</h2>
-                    <p className="text-gray-600 font-medium mb-10 text-[15px]">We may send link to your registered phone number</p>
-
-                    {/* DigiLocker iFrame Box */}
-                    <div className="w-full border border-gray-200 rounded-xl overflow-hidden shadow-sm bg-white">
-
-                        {/* DigiLocker Header */}
-                        <div className="flex items-center gap-3 p-4 px-6 border-b border-gray-100">
-                            {/* Indian Emblem placeholder */}
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem" className="h-8 opacity-80" />
-                            {/* DigiLocker Logo */}
-                            <div className="flex items-center gap-2">
-                                <div className="text-[#3A1E97] font-bold text-xl tracking-tight flex items-center">
-                                    <span className="bg-[#3A1E97] text-white p-0.5 rounded mr-1 leading-none">
-                                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19 10h-1a1 1 0 0 1 0-2h1V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2h1a1 1 0 0 1 0 2H5v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10zM12 17a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" /></svg>
-                                    </span>
-                                    DigiLocker
-                                </div>
-                                <div className="flex flex-col text-[7px] text-gray-500 font-bold uppercase leading-tight pt-1">
-                                    <span>Document Wallet To Empower Citizens</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* DigiLocker Content */}
-                        <div className="bg-[#F5F2FE] w-full h-[400px] flex items-center justify-center relative">
-
-                            {/* Inner white card */}
-                            <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-8 w-[400px]">
-
-                                {/* User Profile section */}
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-12 h-12 rounded-xl bg-[#5628F5] text-white flex items-center justify-center font-bold text-lg">
-                                        PV
-                                    </div>
-                                    <div>
-                                        <p className="font-bold text-gray-900 text-[15px]">Pr***** ***ma</p>
-                                        <p className="text-[#3CA751] text-[11px] font-bold flex items-center gap-1">
-                                            Verified <CheckCircle2 className="w-3 h-3 fill-current text-white" />
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <h3 className="font-bold text-[17px] text-gray-900 mb-4">Enter 6 digit security PIN</h3>
-
-                                <div className="flex gap-2.5 mb-2 relative">
-                                    {pin.map((digit, i) => (
-                                        <input
-                                            key={i} ref={(el) => { inputRefs.current[i] = el; }}
-                                            type="password" inputMode="numeric" pattern="[0-9]*" maxLength={1} value={digit}
-                                            onChange={(e) => handleChange(i, e.target.value)} onKeyDown={(e) => handleKeyDown(i, e)}
-                                            className="w-12 h-12 text-center text-xl font-bold border-2 border-gray-200 rounded-lg text-gray-800 focus:border-[#5628F5] focus:ring-0 outline-none transition-colors"
-                                            style={{ borderColor: i === 0 && !digit ? '#8B6BFF' : '' }} // Highlight first box 
-                                        />
-                                    ))}
-                                    <EyeOff className="w-4 h-4 text-[#5628F5] absolute -right-6 top-1/2 -translate-y-1/2 cursor-pointer" />
-                                </div>
-
-                                <p className="text-[#5628F5] text-[11px] font-bold mt-3 mb-6 hover:underline cursor-pointer inline-block">
-                                    Forgot security PIN?
-                                </p>
-
-                                <button
-                                    onClick={handleVerify}
-                                    className="w-full bg-[#C2AAFF] text-white font-bold py-3.5 rounded-xl hover:bg-[#A989FF] transition-colors flex items-center justify-center"
-                                >
-                                    {loading ? <Loader2 className="animate-spin" /> : "Verify"}
-                                </button>
-                            </div>
-
+                <div className="flex-1 px-8 lg:px-14 py-10 overflow-y-auto bg-white flex flex-col items-start relative">
+                    {/* Header */}
+                    <div className="mb-2 w-full flex items-center gap-4">
+                        <button onClick={() => router.back()} className="hover:bg-gray-100 p-1.5 rounded-full transition">
+                            <ChevronLeft className="w-6 h-6 text-gray-700" />
+                        </button>
+                        <div>
+                            <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1 block">STEP 3</span>
+                            <h2 className="text-[20px] font-bold text-gray-900">Verification</h2>
                         </div>
                     </div>
+                    {/* Progress Bar inside right section */}
+                    <div className="absolute top-[100px] left-14 right-14 h-[3px] bg-gray-200 overflow-hidden mb-6">
+                        <div className="h-full bg-yellow-400 w-[50%]"></div>
+                    </div>
+
+                    <div className="w-full mt-10">
+                        <h3 className="text-[24px] font-bold text-gray-900 tracking-tight mb-2">Verify Your Identify</h3>
+                        <p className="text-[14px] text-gray-700 font-medium mb-6">We may send link to your registered phone number</p>
+
+                        {/* Digilocker Block */}
+                        <div className="w-full rounded-2xl border border-gray-200 overflow-hidden shadow-sm h-[400px] flex flex-col items-center">
+                            {/* Logo top bar */}
+                            <div className="w-full h-[60px] flex items-center border-b border-gray-200 px-6 gap-3 shrink-0">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Emblem_of_India.svg/250px-Emblem_of_India.svg.png" alt="India Emblem" className="h-10 w-auto opacity-70" />
+                                <div className="h-8 border-l border-gray-300 ml-2"></div>
+                                <div className="flex items-center gap-2 ml-2">
+                                    <div className="w-10 h-10 rounded bg-[#5A29B0] flex items-center justify-center">
+                                        <div className="text-white text-[12px] font-bold">DL</div>
+                                    </div>
+                                    <div>
+                                        <span className="text-xl font-bold text-[#5A29B0] leading-none tracking-tight">DigiLocker</span>
+                                        <span className="text-[8px] text-gray-500 block">Document Wallet to Empower Citizens</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Purplish background container */}
+                            <div className="w-full flex-1 bg-[#F5F1FD] flex justify-center items-center py-8">
+                                <div className="bg-white p-8 rounded-[16px] shadow-lg border border-[#E9E1F5] w-[400px]">
+
+                                    <div className="flex items-center gap-4 mb-6">
+                                        <div className="w-[45px] h-[45px] bg-[#5A29B0] text-white flex items-center justify-center font-bold text-lg rounded-md shadow-sm border border-[#48208c]">
+                                            PV
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="font-bold text-gray-900 tracking-tight text-[16px]">Pr***** ***ma</span>
+                                            <span className="text-[11px] font-bold text-green-600 flex items-center gap-1">
+                                                Verified <ShieldCheck className="w-3.5 h-3.5" />
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <h4 className="text-[18px] font-bold text-gray-900 mb-5 tracking-tight">Enter 6 digit security PIN</h4>
+
+                                    <div className="flex items-center gap-2 sm:gap-3 mb-3">
+                                        {pin.map((digit, i) => (
+                                            <input
+                                                key={i}
+                                                ref={(el) => { inputRefs.current[i] = el; }}
+                                                type="password"
+                                                inputMode="numeric"
+                                                pattern="[0-9]*"
+                                                maxLength={1}
+                                                value={digit}
+                                                onChange={(e) => handlePinChange(i, e.target.value)}
+                                                onKeyDown={(e) => handleKeyDown(i, e)}
+                                                className={`w-[45px] h-[50px] text-center text-xl font-bold rounded-lg border focus:outline-none transition ${digit ? 'border-[#5A29B0] ring-1 ring-[#5A29B0]' : 'border-gray-300'}`}
+                                            />
+                                        ))}
+                                        <button className="text-[#5A29B0] ml-1 opacity-70 hover:opacity-100">
+                                            <EyeOff className="w-5 h-5" strokeWidth={2.5} />
+                                        </button>
+                                    </div>
+
+                                    <a href="#" className="text-[11.5px] font-bold text-[#5A29B0] hover:underline block mb-6">Forgot security PIN?</a>
+
+                                    <button
+                                        onClick={handleVerify}
+                                        disabled={!allEntered || verifying}
+                                        className="w-full h-[45px] rounded border-none text-[15px] font-bold flex justify-center items-center transition-all disabled:bg-[#D4C3F3] disabled:text-white enabled:bg-[#5A29B0] enabled:text-white enabled:hover:bg-[#48208c]"
+                                    >
+                                        {verifying ? <Loader2 className="w-5 h-5 animate-spin text-white" /> : "Verify"}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-8 flex w-full">
+                        <button
+                            onClick={handleProceed}
+                            disabled={loading}
+                            className="bg-black text-white text-[15px] font-semibold rounded hover:bg-gray-800 transition shadow-md flex justify-center items-center px-10 h-14"
+                        >
+                            {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Proceed"}
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>
