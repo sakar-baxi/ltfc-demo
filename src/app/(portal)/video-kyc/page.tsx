@@ -1,18 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ChevronLeft, Check, Loader2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function VideoKycPage() {
+function VideoKycContent() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const isUpdated = searchParams.get("updated") === "true";
+
     const [loading, setLoading] = useState(false);
+    const [kycSuccess, setKycSuccess] = useState(false);
+    const [showChangeModal, setShowChangeModal] = useState(false);
+    const [address, setAddress] = useState("Flat 901, Tower 8, Godrej Prime, Sahakar Nagar Vibhag -2, CHSL, Chembur (E), Mumbai, Maharashtra - 400071");
+
+    useEffect(() => {
+        if (isUpdated) {
+            setAddress("Flat 901, Tower 8, Godrej Prime, Sahakar Nagar Vibhag -2, CHSL, Chembur (E), Mumbai, Maharashtra - 400071");
+        }
+    }, [isUpdated]);
 
     const handleProceed = () => {
         setLoading(true);
+        // Simulate KYC confirm - bypass generic /loader
         setTimeout(() => {
-            router.push("/actual-video-kyc");
-        }, 1000);
+            setKycSuccess(true);
+            setTimeout(() => {
+                router.push("/kfs");
+            }, 2000);
+        }, 3000);
     };
 
     return (
@@ -109,7 +126,7 @@ export default function VideoKycPage() {
                                         <div className="flex items-center justify-center w-[20px] h-[20px] rounded-full bg-[#34a853] shrink-0 mt-0.5">
                                             <Check className="w-3.5 h-3.5 text-white" strokeWidth={4} />
                                         </div>
-                                        <div className="flex flex-col gap-3">
+                                        <div className="flex flex-col gap-3 flex-1">
                                             <span className="text-[14px] font-medium text-gray-800 leading-snug">
                                                 <span className="relative group cursor-pointer text-[#007EA7] font-bold underline outline-offset-4">
                                                     1 of 8 documents
@@ -127,10 +144,16 @@ export default function VideoKycPage() {
                                                     </div>
                                                 </span> as address proof for your following address:
                                             </span>
-                                            <div className="bg-[#f0f9fa] rounded-md px-4 py-3 border border-[#d8eff3] shadow-sm">
-                                                <p className="text-[12.5px] text-gray-700 leading-relaxed font-medium">
-                                                    Flat 901, Tower 8, Godrej Prime, Sahakar Nagar Vibhag -2, CHSL, Chembur (E), Mumbai, Maharashtra - 400071
+                                            <div className="bg-[#f0f9fa] border border-[#dceef1] rounded-lg p-4 mt-1 relative w-full">
+                                                <p className="text-[12.5px] font-medium text-gray-700 leading-relaxed pr-16">
+                                                    {address}
                                                 </p>
+                                                <button
+                                                    onClick={() => setShowChangeModal(true)}
+                                                    className="absolute top-4 right-4 text-blue-600 text-[12px] font-bold underline"
+                                                >
+                                                    Change
+                                                </button>
                                             </div>
                                         </div>
                                     </li>
@@ -160,6 +183,73 @@ export default function VideoKycPage() {
 
                 </div>
             </div>
+
+            {/* Change Address Confirmation Modal */}
+            <AnimatePresence>
+                {showChangeModal && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                            onClick={() => setShowChangeModal(false)}
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            className="bg-white rounded-2xl p-8 max-w-[500px] w-full relative z-10 shadow-2xl border border-gray-100"
+                        >
+                            <h2 className="text-[24px] font-bold text-gray-900 mb-4 pr-10">Sure you wish to change your address?</h2>
+                            <p className="text-[15px] text-gray-600 leading-relaxed mb-10 font-medium">
+                                Your loan offer may change if you update your current residential address, please confirm to proceed.
+                            </p>
+                            <button
+                                onClick={() => router.push("/current-address")}
+                                className="w-full h-14 bg-black text-white font-bold rounded-lg text-[16px] hover:bg-gray-800 transition"
+                            >
+                                Proceed
+                            </button>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            {/* KYC Success Loader Overlay Overlay */}
+            <AnimatePresence>
+                {loading && (
+                    <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 bg-white" />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+                            className="flex flex-col items-center justify-center z-10"
+                        >
+                            {!kycSuccess ? (
+                                <>
+                                    <Loader2 className="w-16 h-16 text-[#005187] animate-spin mb-6" strokeWidth={1.5} />
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Confirming Video KYC</h3>
+                                    <p className="text-sm text-gray-500 font-medium tracking-tight">This may take a few seconds...</p>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-green-100 animate-in zoom-in duration-500">
+                                        <Check className="w-10 h-10 text-white" strokeWidth={4} />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2 text-center tracking-tight">Video KYC Successful</h3>
+                                    <p className="text-sm text-gray-500 font-medium tracking-tight">Hang tight, we're taking you to the next step</p>
+                                </>
+                            )}
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
+    );
+}
+
+export default function VideoKycPage() {
+    return (
+        <Suspense fallback={<div className="flex w-full min-h-screen items-center justify-center"><Loader2 className="w-8 h-8 animate-spin" /></div>}>
+            <VideoKycContent />
+        </Suspense>
     );
 }

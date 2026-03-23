@@ -18,7 +18,7 @@ export default function CurrentAddressPage() {
         setTimeout(() => {
             // Save address locally or just pass back via state if needed
             // For this demo, we'll just navigate back
-            router.push("/actual-video-kyc?updated=true");
+            router.push("/video-kyc?updated=true");
         }, 1200);
     };
 
