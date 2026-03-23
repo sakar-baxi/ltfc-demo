@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function RepaymentPage() {
     const router = useRouter();
-    const [mode, setMode] = useState<"netbanking" | "upi">("netbanking");
+    const [mode, setMode] = useState<"netbanking" | "upi">("upi");
     const [loading, setLoading] = useState(false);
 
     // Form inputs and consent

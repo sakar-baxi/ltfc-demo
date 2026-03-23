@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 export default function OTPPage() {
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
     const [loading, setLoading] = useState(false);
-    const [consent, setConsent] = useState(false);
     const router = useRouter();
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -32,11 +31,6 @@ export default function OTPPage() {
     };
 
     const handleProceed = async () => {
-        if (!consent) {
-            alert("Please accept the terms and conditions.");
-            return;
-        }
-
         // Check if OTP is fully entered
         if (otp.some(digit => digit === "")) {
             alert("Please enter a valid 6-digit OTP.");
@@ -107,18 +101,6 @@ export default function OTPPage() {
                         <span className="cursor-pointer hover:underline">Incorrect number? Click Here</span>
                     </div>
 
-                    <label className="flex items-start gap-3 mb-8 cursor-pointer group">
-                        <input
-                            type="checkbox"
-                            className="mt-1 w-4 h-4 text-[#005187] border-gray-300 rounded focus:ring-[#005187]"
-                            checked={consent}
-                            onChange={(e) => setConsent(e.target.checked)}
-                        />
-                        <span className="text-sm text-gray-600 leading-relaxed font-medium">
-                            Consent text with hyperlinked <a href="#" className="text-blue-600 font-bold hover:underline">T&Cs</a>
-                        </span>
-                    </label>
-
                     <button
                         onClick={handleProceed}
                         disabled={loading}
@@ -148,9 +130,6 @@ export default function OTPPage() {
                 transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
                 className="hidden lg:flex flex-1 bg-[#F4C01C] flex-col justify-end items-center relative overflow-hidden"
             >
-                {/* Placeholder for the guy holding phone */}
-                {/* We recreate the visuals safely */}
-
                 <div className="absolute w-full h-full top-0 left-0 bg-gradient-to-br from-yellow-400 to-amber-500 z-0"></div>
                 <div className="absolute w-[800px] h-[800px] bg-white/20 rounded-full blur-3xl mix-blend-overlay pointer-events-none z-0" />
 

@@ -56,7 +56,7 @@ export default function SuccessPage() {
                     <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent"></div>
 
                     <div className="relative z-10">
-                        <h2 className="text-2xl font-bold mb-4 tracking-wide">Congratulations Manish!</h2>
+                        <h2 className="text-2xl font-bold mb-4 tracking-wide">Congratulations Amit!</h2>
                         <h1 className="text-7xl font-bold tracking-tighter mb-6 relative">
                             <span className="font-sans font-light mr-1">₹</span> 15,45,000
                         </h1>

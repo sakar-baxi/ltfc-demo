@@ -16,7 +16,7 @@ export default function VerifyBankPage() {
     return (
         <div className="flex flex-col w-full h-full bg-[#fcfcfc] px-8 lg:px-24 py-10 relative">
             <div className="mb-6">
-                <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Manish,</h1>
+                <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Amit,</h1>
                 <p className="text-xl text-gray-700">Your loan offer is just couple of steps away!</p>
             </div>
 

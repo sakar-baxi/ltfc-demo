@@ -32,7 +32,7 @@ export default function SignDocumentsPage() {
                     <div className="flex-1 bg-gray-200/50 p-6 flex flex-col overflow-y-auto">
                         <div className="w-full bg-white min-h-[800px] shadow-sm p-12 text-gray-800 border border-gray-300 relative font-serif mx-auto max-w-xl text-[10px] leading-relaxed">
                             <h2 className="font-bold text-center text-lg mb-8 uppercase">Master Loan Agreement</h2>
-                            <p className="mb-4">This Loan Agreement ("Agreement") is made and entered into primarily by and between L&T Finance Limited and Mr. Manish.</p>
+                            <p className="mb-4">This Loan Agreement ("Agreement") is made and entered into primarily by and between L&T Finance Limited and Mr. Amit.</p>
                             <p className="mb-4">1. Loan Amount: ₹15,00,000</p>
                             <p className="mb-4">2. Interest Rate: 10% p.a. fixed for the tenor.</p>
                             <p className="mb-4">3. Monthly EMI: ₹9,735</p>

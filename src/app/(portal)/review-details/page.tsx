@@ -58,7 +58,7 @@ export default function ReviewDetailsPage() {
                 {/* Left Nav */}
                 <div className="hidden lg:flex w-[300px] bg-[#fbe76a] p-10 flex-col relative shrink-0">
                     <div className="mb-10">
-                        <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Manish,</h1>
+                        <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Amit,</h1>
                         <p className="text-sm text-gray-800 font-medium leading-relaxed">Your loan is just couple of steps away!</p>
                     </div>
 
@@ -117,7 +117,7 @@ export default function ReviewDetailsPage() {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-6 mb-8">
                                 <div>
                                     <p className="text-[13px] text-gray-500 mb-1">Name (as per PAN)</p>
-                                    <p className="text-[16px] font-bold text-gray-900">Manish Kumar Goyal</p>
+                                    <p className="text-[16px] font-bold text-gray-900">Amit Sharma</p>
                                 </div>
                                 <div>
                                     <p className="text-[13px] text-gray-500 mb-1">PAN</p>
@@ -208,39 +208,45 @@ export default function ReviewDetailsPage() {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            className="bg-white rounded-2xl shadow-2xl p-8 max-w-[500px] w-full relative"
+                            className="bg-white rounded-2xl shadow-2xl p-10 max-w-[480px] w-full relative"
                         >
-                            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center flex-wrap gap-2">
-                                Enter OTP sent on <span className="text-2xl ml-1">91729 83746</span>
-                                <button className="text-[#007EA7] text-[13px] font-medium ml-2 hover:underline">Change number</button>
+                            <h3 className="text-[22px] font-bold text-gray-900 mb-1 tracking-tight">
+                                Enter OTP sent from ICICI Bank
                             </h3>
+                            <p className="text-[14px] text-gray-500 mb-10 font-medium">OTP is required to verify your bank account</p>
 
-                            <div className="flex justify-between gap-2 sm:gap-4 mb-3">
+                            <div className="flex justify-between gap-3 mb-4">
                                 {otp.map((digit, i) => (
-                                    <input
-                                        key={i}
-                                        ref={(el) => { inputRefs.current[i] = el; }}
-                                        type="text"
-                                        inputMode="numeric"
-                                        pattern="[0-9]*"
-                                        maxLength={1}
-                                        value={digit}
-                                        onChange={(e) => handleOtpChange(i, e.target.value)}
-                                        onKeyDown={(e) => handleKeyDown(i, e)}
-                                        className={`w-12 h-14 sm:w-[3.5rem] sm:h-16 text-center text-2xl font-bold border rounded outline-none transition-all shadow-sm ${digit ? 'border-[#007EA7] ring-1 ring-[#007EA7] text-gray-900' : 'border-gray-300 focus:border-[#007EA7] focus:ring-1 focus:ring-[#007EA7]'}`}
-                                    />
+                                    <div key={i} className="relative">
+                                        <input
+                                            ref={(el) => { inputRefs.current[i] = el; }}
+                                            type="text"
+                                            inputMode="numeric"
+                                            pattern="[0-9]*"
+                                            maxLength={1}
+                                            value={digit}
+                                            onChange={(e) => handleOtpChange(i, e.target.value)}
+                                            onKeyDown={(e) => handleKeyDown(i, e)}
+                                            className={`w-12 h-14 sm:w-[3.6rem] sm:h-[4rem] text-center text-3xl font-bold border rounded-lg outline-none transition-all shadow-sm ${digit ? 'border-sky-500 ring-1 ring-sky-500 text-transparent' : 'border-gray-300 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'}`}
+                                        />
+                                        {digit && (
+                                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none text-2xl font-bold text-gray-800">
+                                                {i === 5 ? digit : '•'}
+                                            </div>
+                                        )}
+                                    </div>
                                 ))}
                             </div>
 
-                            <p className="text-[13px] text-gray-500 mb-8">
-                                Resend OTP in <span className="font-bold text-gray-800">30s</span>
+                            <p className="text-[13px] text-gray-500 mb-10 font-medium">
+                                Resend OTP in <span className="text-gray-900 font-bold">30s</span>
                             </p>
 
                             <button
-                                disabled={!verifying && otp.some(d => d === "")}
-                                className="w-full h-14 bg-gray-200 text-gray-500 font-bold rounded flex justify-center items-center shadow-sm transition disabled:opacity-80 enabled:bg-[#005187] enabled:text-white enabled:hover:bg-[#003c66]"
+                                disabled={true}
+                                className="w-full h-[60px] bg-[#e5e7eb] text-[#9ca3af] font-bold rounded-lg text-lg flex justify-center items-center shadow-sm transition tracking-tight"
                             >
-                                {verifying ? <Loader2 className="animate-spin text-gray-600" /> : "Verifying OTP"}
+                                {verifying ? <Loader2 className="animate-spin text-gray-400" /> : "Verifying OTP"}
                             </button>
                         </motion.div>
                     </div>

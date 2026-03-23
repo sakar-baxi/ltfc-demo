@@ -52,7 +52,7 @@ export default function VerifyIdentityPage() {
                 {/* Left Nav */}
                 <div className="hidden lg:flex w-[300px] bg-[#fbe76a] p-10 flex-col relative shrink-0">
                     <div className="mb-10">
-                        <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Manish,</h1>
+                        <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Amit,</h1>
                         <p className="text-sm text-gray-800 font-medium leading-relaxed">Your loan is just couple of steps away!</p>
                     </div>
 

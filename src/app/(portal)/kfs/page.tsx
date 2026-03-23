@@ -22,7 +22,7 @@ export default function KFSPage() {
                 {/* Left Nav */}
                 <div className="hidden lg:flex w-[300px] bg-[#fbe76a] p-10 flex-col relative shrink-0">
                     <div className="mb-10">
-                        <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Manish,</h1>
+                        <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Amit,</h1>
                         <p className="text-sm text-gray-800 font-medium leading-relaxed">Your loan is just couple of steps away!</p>
                     </div>
 
@@ -108,13 +108,13 @@ export default function KFSPage() {
 
                                     <div>
                                         <p>To,</p>
-                                        <p className="font-bold">MANISH SHARMA</p>
+                                        <p className="font-bold">AMIT SHARMA</p>
                                         <p>Current Address: Near Navnath Mandir, Navnath Nagar, Garkheda, Aurangabad</p>
                                         <p>Aurangabad, Maharashtra - 431001</p>
                                         <p>Permanent Address: S/O Dhanasing Lavhale, NAVNATH NAGAR GARKHEDA PARISAR, NEAR NAVNATH MANDIR</p>
                                         <p>Aurangabad, Maharashtra (MH)</p>
                                         <p>431005 Aurangbad Maharashtra</p>
-                                        <p>Email id: manish.sharma@example.com</p>
+                                        <p>Email id: amit.sharma@example.com</p>
                                         <p>Mobile Number: 98****5678</p>
                                     </div>
 

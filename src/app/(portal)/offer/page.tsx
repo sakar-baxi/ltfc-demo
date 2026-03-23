@@ -54,7 +54,7 @@ export default function OfferPage() {
                 {/* Left Nav */}
                 <div className="hidden lg:flex w-[300px] bg-[#fbe76a] p-10 flex-col relative shrink-0">
                     <div className="mb-10">
-                        <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Manish,</h1>
+                        <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Amit,</h1>
                         <p className="text-sm text-gray-800 font-medium leading-relaxed">Your loan is just couple of steps away!</p>
                     </div>
 
@@ -120,7 +120,7 @@ export default function OfferPage() {
 
                             <div className="relative z-10 mt-auto drop-shadow-md">
                                 <p className="text-[15px] font-bold text-white/90 mb-1 tracking-wide">
-                                    Congratulations Manish!
+                                    Congratulations Amit!
                                 </p>
                                 <p className="text-[15px] font-bold text-white mb-4 tracking-wide">
                                     You can instantly get
